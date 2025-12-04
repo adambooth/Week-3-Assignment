@@ -62,6 +62,36 @@ body {
   padding: 5px;
 }
 
+#volume-change-container {
+  grid-column-start: 3;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+}
+
+#volume-icon {
+  transition: 0.2s opacity ease, 0.2s padding ease;
+}
+
+#volume-icon:hover {
+  opacity: 0.5;
+  padding: 6px;
+}
+
+#volume-icon:active {
+  opacity: 0.8;
+  padding: 7px;
+}
+
+#volumeContainer {
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 #background-icon {
   transition: 0.2s opacity ease, 0.2s padding ease;
 }

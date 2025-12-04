@@ -7,6 +7,8 @@ const clickPowerContainer = document.getElementById("click-power-container");
 const autoPowerContainer = document.getElementById("auto-power-container");
 const rightContainer = document.getElementById("right-container");
 
+const audioComponent = document.getElementById("audio-component");
+
 //localStorage.clear();
 
 let currentMoney = 0;
@@ -14,6 +16,7 @@ let clickPower = 1;
 let autoPowerPerSecond = 0;
 let first100CookiesComplete = 0;
 let first1000CookiesComplete = 0;
+let volumeAmount = 50;
 
 let upgradeLvls = {
   upgrade1: 0,
@@ -57,6 +60,8 @@ let upgradeIncreaseAmounts = {
 cookie.addEventListener("click", function () {
   currentMoney = currentMoney + clickPower;
   moneyContainer.textContent = `Cookies : ${currentMoney}`;
+  audioComponent.playbackRate = 5;
+  audioComponent.play();
 });
 
 function updateStats() {
@@ -150,6 +155,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
       if (currentMoney >= upgrade.cost) {
         currentMoney = currentMoney - upgrade.cost;
         clickPower = clickPower + upgrade.increase;
+        audioComponent.playbackRate = 1;
+        audioComponent.play();
         upgradeLvls[`upgrade${upgrade.id}`] += 1;
         updateStats();
         upgrade.cost = Math.floor(upgrade.cost * 1.15);
@@ -167,6 +174,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
       if (currentMoney >= upgrade.cost) {
         currentMoney = currentMoney - upgrade.cost;
         autoPowerPerSecond = autoPowerPerSecond + upgrade.increase;
+        audioComponent.playbackRate = 1;
+        audioComponent.play();
         const ownsNextUpgrade = upgradeLvls[`upgrade${upgrade.id}`];
         upgradeLvls[`upgrade${upgrade.id}`] += 1;
         const nextUpgrade = upgrade.id;
@@ -495,7 +504,7 @@ function first100Cookies() {
   middleContainer.appendChild(first100CookiesSection);
   setInterval(function () {
     first100CookiesSection.remove();
-  }, 1000);
+  }, 2000);
 }
 
 function first1000Cookies() {
@@ -530,5 +539,40 @@ function first1000Cookies() {
   middleContainer.appendChild(first1000CookiesSection);
   setInterval(function () {
     first1000CookiesSection.remove();
-  }, 1000);
+  }, 2000);
 }
+
+//===============================================Volume Icon===============================================
+
+const volumeIcon = document.getElementById("volume-change-container");
+
+const volumeContainer = document.createElement("div");
+volumeContainer.id = "volumeContainer";
+
+const volumeLabel = document.createElement("label");
+const volumeInput = document.createElement("input");
+
+volumeLabel.for = "volume";
+
+volumeInput.type = "range";
+volumeInput.id = "volume";
+volumeInput.min = "0";
+volumeInput.max = "100";
+volumeInput.value = "50";
+
+volumeContainer.appendChild(volumeLabel);
+volumeContainer.appendChild(volumeInput);
+
+volumeIcon.addEventListener("mouseenter", function () {
+  volumeIcon.appendChild(volumeContainer);
+  const slider = document.getElementById("volume");
+  slider.addEventListener("input", () => {
+    volumeAmount = slider.value;
+    audioComponent.volume = volumeAmount / 100;
+    console.log(volumeAmount);
+  });
+});
+
+volumeIcon.addEventListener("mouseleave", function () {
+  volumeContainer.remove();
+});
