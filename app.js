@@ -348,3 +348,58 @@ async function loadUpgrades() {
     createUpgrade(cookieUpgrades, 10);
   }
 }
+
+//===============================================Background Icon===============================================
+
+const backgroundIcon = document.getElementById("background-change-container");
+
+const mainContainer = document.getElementById("main-container");
+
+const backgroundsContainer = document.createElement("div");
+backgroundsContainer.id = "backgroundsContainer";
+
+const redBackground = document.createElement("img");
+const lightblueBackground = document.createElement("img");
+const brownBackground = document.createElement("img");
+redBackground.src = "./media/images/redBackground.png";
+lightblueBackground.src = "./media/images/lightblueBackground.png";
+brownBackground.src = "./media/images/brownBackground.png";
+
+redBackground.id = "red-background-img";
+lightblueBackground.id = "lightblue-background-img";
+brownBackground.id = "brown-background-img";
+
+backgroundsContainer.appendChild(redBackground);
+backgroundsContainer.appendChild(lightblueBackground);
+backgroundsContainer.appendChild(brownBackground);
+
+backgroundIcon.addEventListener("mouseenter", function () {
+  backgroundIcon.appendChild(backgroundsContainer);
+
+  const redBackgroundBtn = document.getElementById("red-background-img");
+
+  const lightblueBackgroundBtn = document.getElementById(
+    "lightblue-background-img"
+  );
+
+  const brownBackgroundBtn = document.getElementById("brown-background-img");
+
+  redBackgroundBtn.addEventListener("click", function () {
+    mainContainer.style.backgroundColor = "red";
+    console.log("red btn clicked");
+  });
+
+  lightblueBackgroundBtn.addEventListener("click", function () {
+    mainContainer.style.backgroundColor = "lightblue";
+    console.log("lightblue btn clicked");
+  });
+
+  brownBackgroundBtn.addEventListener("click", function () {
+    mainContainer.style.backgroundColor = "brown";
+    console.log("brown btn clicked");
+  });
+});
+
+backgroundIcon.addEventListener("mouseleave", function () {
+  backgroundsContainer.remove();
+});
