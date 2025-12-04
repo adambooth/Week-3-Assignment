@@ -77,7 +77,6 @@ body {
 }
 
 header {
-  background-color: rgb(112, 114, 228);
   padding: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -93,6 +92,21 @@ h1 {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
+#cookie-amount-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(112, 114, 228, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+#cookieamountImg {
+  width: 40px;
+  height: 40px;
+}
+
 p {
   font-family: "Fredoka One";
   color: white;
@@ -105,13 +119,9 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
-  background-color: lightblue;
 }
 
 #money-holder {
-  padding: 10px;
-  background-color: rgba(112, 114, 228, 0.5);
-  border-radius: 10px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -129,6 +139,9 @@ main {
   justify-content: center;
   flex-direction: column;
   grid-column-start: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 50px;
 }
 
 #cookieImg {
@@ -143,6 +156,10 @@ main {
 #middle-container {
   grid-column-start: 2;
   padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 #right-container {
@@ -161,6 +178,18 @@ main {
   flex-direction: column;
 }
 
+#InsufficientMoneyContainer {
+  padding: 5px;
+  border: 2px solid brown;
+  background-color: rgba(112, 114, 228, 0.5);
+  margin: 5px;
+  width: 50%;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
 #\31,
 #\32,
 #\33,
@@ -177,6 +206,22 @@ main {
   margin: 5px;
   width: 90%;
   border-radius: 20px;
+}
+
+#upgrades-title-container {
+  padding: 5px;
+  border: 2px solid brown;
+  background-color: rgba(112, 114, 228, 0.5);
+  margin: 5px;
+  width: 90%;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#upgrade-title {
+  font-size: 60px;
 }
 
 #cursorImg {
@@ -233,4 +278,14 @@ main {
   margin: 5px;
   width: 90%;
   border-radius: 20px;
+}
+
+@media (max-width: 1100px) {
+  #InsufficientMoneyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: 0px;
+  }
 }

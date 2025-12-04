@@ -12,6 +12,8 @@ const rightContainer = document.getElementById("right-container");
 let currentMoney = 0;
 let clickPower = 1;
 let autoPowerPerSecond = 0;
+let first100CookiesComplete = 0;
+let first1000CookiesComplete = 0;
 
 let upgradeLvls = {
   upgrade1: 0,
@@ -59,8 +61,8 @@ cookie.addEventListener("click", function () {
 
 function updateStats() {
   moneyContainer.textContent = `Cookies : ${currentMoney}`;
-  clickPowerContainer.innerHTML = `Click Power : ${clickPower}`;
-  autoPowerContainer.innerHTML = `Auto Power Per Second : ${autoPowerPerSecond}`;
+  clickPowerContainer.innerHTML = `Cookie Power : ${clickPower}`;
+  autoPowerContainer.innerHTML = `Auto Cookies Per Second : ${autoPowerPerSecond}`;
 }
 
 loadData();
@@ -158,6 +160,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
         lvlParagraph.textContent =
           "Lvl : " + upgradeLvls[`upgrade${upgrade.id}`];
         costParagraph.textContent = upgrade.cost;
+      } else if (currentMoney < upgrade.cost) {
+        InsufficientMoneyFunc();
       }
     } else {
       if (currentMoney >= upgrade.cost) {
@@ -178,6 +182,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
         lvlParagraph.textContent =
           "Lvl : " + upgradeLvls[`upgrade${upgrade.id}`];
         costParagraph.textContent = upgrade.cost;
+      } else if (currentMoney < upgrade.cost) {
+        InsufficientMoneyFunc();
       }
     }
   });
@@ -185,6 +191,14 @@ function createUpgrade(upgradeData, upgradeNumber) {
 
 function startAutoPower() {
   setInterval(function () {
+    if (first100CookiesComplete === 0 && currentMoney >= 100) {
+      first100CookiesComplete = 1;
+      first100Cookies();
+    }
+    if (first1000CookiesComplete === 0 && currentMoney >= 1000) {
+      first1000CookiesComplete = 1;
+      first1000Cookies();
+    }
     currentMoney = currentMoney + autoPowerPerSecond;
     updateStats();
     localStorage.setItem(
@@ -193,6 +207,8 @@ function startAutoPower() {
         currentMoney,
         clickPower,
         autoPowerPerSecond,
+        first100CookiesComplete,
+        first1000CookiesComplete,
         upgradeLvls,
         upgradeCosts,
         upgradeIncreaseAmounts,
@@ -212,6 +228,8 @@ if (!localStorage.getItem("StoredData")) {
       currentMoney: 0,
       clickPower: 1,
       autoPowerPerSecond: 0,
+      first100CookiesComplete,
+      first1000CookiesComplete,
       upgradeLvls: {
         upgrade1: 0,
         upgrade2: 0,
@@ -259,6 +277,8 @@ function loadData() {
     currentMoney = data.currentMoney;
     clickPower = data.clickPower;
     autoPowerPerSecond = data.autoPowerPerSecond;
+    first100CookiesComplete = data.first100CookiesComplete;
+    first1000CookiesComplete = data.first1000CookiesComplete;
 
     upgradeLvls = {
       upgrade1: data.upgradeLvls.upgrade1,
@@ -385,17 +405,17 @@ backgroundIcon.addEventListener("mouseenter", function () {
   const brownBackgroundBtn = document.getElementById("brown-background-img");
 
   redBackgroundBtn.addEventListener("click", function () {
-    mainContainer.style.backgroundColor = "red";
+    document.body.style.backgroundColor = "red";
     console.log("red btn clicked");
   });
 
   lightblueBackgroundBtn.addEventListener("click", function () {
-    mainContainer.style.backgroundColor = "lightblue";
+    document.body.style.backgroundColor = "lightblue";
     console.log("lightblue btn clicked");
   });
 
   brownBackgroundBtn.addEventListener("click", function () {
-    mainContainer.style.backgroundColor = "brown";
+    document.body.style.backgroundColor = "brown";
     console.log("brown btn clicked");
   });
 });
@@ -403,3 +423,112 @@ backgroundIcon.addEventListener("mouseenter", function () {
 backgroundIcon.addEventListener("mouseleave", function () {
   backgroundsContainer.remove();
 });
+
+//===============================================Error/Insufficient Money===============================================
+
+function InsufficientMoneyFunc() {
+  const InsufficientMoney = document.createElement("section");
+  InsufficientMoney.id = "InsufficientMoneyContainer";
+
+  const upgradeImgDiv = document.createElement("div");
+  upgradeImgDiv.id = "upgrade-img";
+
+  const cursorImg = document.createElement("img");
+  cursorImg.id = "cursorImg";
+  cursorImg.src = "./media/images/redCross.png";
+  cursorImg.alt = "a cartoon cursor picture";
+  upgradeImgDiv.appendChild(cursorImg);
+
+  const upgradeLvlDiv = document.createElement("div");
+  upgradeLvlDiv.id = "upgrade-title";
+  const lvlParagraph = document.createElement("p");
+  lvlParagraph.textContent = "Lvl : ";
+  upgradeLvlDiv.appendChild(lvlParagraph);
+
+  const upgradeCostDiv = document.createElement("div");
+  upgradeCostDiv.id = "upgrade-cost";
+  const costParagraph = document.createElement("p");
+  const currentCost = "Insufficient Cookies";
+  costParagraph.textContent = currentCost;
+  upgradeCostDiv.appendChild(costParagraph);
+
+  InsufficientMoney.appendChild(upgradeImgDiv);
+  InsufficientMoney.appendChild(upgradeCostDiv);
+
+  middleContainer.appendChild(InsufficientMoney);
+  setInterval(function () {
+    InsufficientMoney.remove();
+  }, 1000);
+}
+
+//===============================================Achievements===============================================
+
+function first100Cookies() {
+  const first100CookiesSection = document.createElement("section");
+  first100CookiesSection.id = "InsufficientMoneyContainer";
+
+  const upgradeImgDiv = document.createElement("div");
+  upgradeImgDiv.id = "upgrade-img";
+
+  const cursorImg = document.createElement("img");
+  cursorImg.id = "cursorImg";
+  cursorImg.src = "./media/images/greenTick.png";
+  cursorImg.alt = "a cartoon cursor picture";
+  upgradeImgDiv.appendChild(cursorImg);
+
+  const upgradeLvlDiv = document.createElement("div");
+  upgradeLvlDiv.id = "upgrade-title";
+  const lvlParagraph = document.createElement("p");
+  lvlParagraph.textContent = "Lvl : ";
+  upgradeLvlDiv.appendChild(lvlParagraph);
+
+  const upgradeCostDiv = document.createElement("div");
+  upgradeCostDiv.id = "upgrade-cost";
+  const costParagraph = document.createElement("p");
+  const currentCost = "First 100 Cookies";
+  costParagraph.textContent = currentCost;
+  upgradeCostDiv.appendChild(costParagraph);
+
+  first100CookiesSection.appendChild(upgradeImgDiv);
+  first100CookiesSection.appendChild(upgradeCostDiv);
+
+  middleContainer.appendChild(first100CookiesSection);
+  setInterval(function () {
+    first100CookiesSection.remove();
+  }, 1000);
+}
+
+function first1000Cookies() {
+  const first1000CookiesSection = document.createElement("section");
+  first1000CookiesSection.id = "InsufficientMoneyContainer";
+
+  const upgradeImgDiv = document.createElement("div");
+  upgradeImgDiv.id = "upgrade-img";
+
+  const cursorImg = document.createElement("img");
+  cursorImg.id = "cursorImg";
+  cursorImg.src = "./media/images/greenTick.png";
+  cursorImg.alt = "a cartoon cursor picture";
+  upgradeImgDiv.appendChild(cursorImg);
+
+  const upgradeLvlDiv = document.createElement("div");
+  upgradeLvlDiv.id = "upgrade-title";
+  const lvlParagraph = document.createElement("p");
+  lvlParagraph.textContent = "Lvl : ";
+  upgradeLvlDiv.appendChild(lvlParagraph);
+
+  const upgradeCostDiv = document.createElement("div");
+  upgradeCostDiv.id = "upgrade-cost";
+  const costParagraph = document.createElement("p");
+  const currentCost = "First 1000 Cookies";
+  costParagraph.textContent = currentCost;
+  upgradeCostDiv.appendChild(costParagraph);
+
+  first1000CookiesSection.appendChild(upgradeImgDiv);
+  first1000CookiesSection.appendChild(upgradeCostDiv);
+
+  middleContainer.appendChild(first1000CookiesSection);
+  setInterval(function () {
+    first1000CookiesSection.remove();
+  }, 1000);
+}
