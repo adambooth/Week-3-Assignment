@@ -4,10 +4,37 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: rgb(112, 114, 228);
+}
+
+#background-change-container {
+  grid-column-start: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#background-icon {
+  transition: 0.2s opacity ease, 0.2s padding ease;
+}
+
+#background-icon:hover {
+  opacity: 0.5;
+  padding: 6px;
+}
+
+#background-icon:active {
+  opacity: 0.8;
+  padding: 7px;
+}
+
 header {
   background-color: rgb(112, 114, 228);
   padding: 10px;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   justify-content: center;
   align-items: center;
 }

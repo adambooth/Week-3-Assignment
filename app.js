@@ -7,6 +7,8 @@ const clickPowerContainer = document.getElementById("click-power-container");
 const autoPowerContainer = document.getElementById("auto-power-container");
 const rightContainer = document.getElementById("right-container");
 
+//localStorage.clear();
+
 let currentMoney = 0;
 let clickPower = 1;
 let autoPowerPerSecond = 0;
@@ -24,6 +26,32 @@ let upgradeLvls = {
   upgrade10: 0,
 };
 
+let upgradeCosts = {
+  upgrade1: 100,
+  upgrade2: 500,
+  upgrade3: 1000,
+  upgrade4: 2000,
+  upgrade5: 5000,
+  upgrade6: 10000,
+  upgrade7: 20000,
+  upgrade8: 50000,
+  upgrade9: 100000,
+  upgrade10: 200000,
+};
+
+let upgradeIncreaseAmounts = {
+  upgrade1: 1,
+  upgrade2: 5,
+  upgrade3: 10,
+  upgrade4: 20,
+  upgrade5: 50,
+  upgrade6: 100,
+  upgrade7: 200,
+  upgrade8: 500,
+  upgrade9: 1000,
+  upgrade10: 2000,
+};
+
 cookie.addEventListener("click", function () {
   currentMoney = currentMoney + clickPower;
   moneyContainer.textContent = `Cookies : ${currentMoney}`;
@@ -35,7 +63,11 @@ function updateStats() {
   autoPowerContainer.innerHTML = `Auto Power Per Second : ${autoPowerPerSecond}`;
 }
 
+loadData();
 updateStats();
+getCookieUpgrade(0);
+getCookieUpgrade(1);
+loadUpgrades();
 
 async function getCookieAPI() {
   const cookieAPI = await fetch(
@@ -53,13 +85,11 @@ async function getCookieUpgrade(number) {
   createUpgrade(cookieUpgrades, number);
 }
 
-getCookieUpgrade(0);
-getCookieUpgrade(1);
-
 function createUpgrade(upgradeData, upgradeNumber) {
   const upgradesArray = upgradeData;
-
   const upgrade = upgradesArray[upgradeNumber];
+  upgrade.increase = upgradeIncreaseAmounts[`upgrade${upgrade.id}`];
+  upgrade.cost = upgradeCosts[`upgrade${upgrade.id}`];
 
   const upgradeSection = document.createElement("section");
   upgradeSection.id = `${upgrade.id}`;
@@ -79,27 +109,36 @@ function createUpgrade(upgradeData, upgradeNumber) {
   titleParagraph.textContent = `${upgrade.name}`;
   upgradeTitleDiv.appendChild(titleParagraph);
 
+  const upgradeLvlDiv = document.createElement("div");
+  upgradeLvlDiv.id = "upgrade-title";
+  const lvlParagraph = document.createElement("p");
+  lvlParagraph.textContent = "Lvl : " + upgradeLvls[`upgrade${upgrade.id}`];
+  upgradeLvlDiv.appendChild(lvlParagraph);
+
   const upgradeIncreaseDiv = document.createElement("div");
   upgradeIncreaseDiv.id = "upgrade-increase";
   const clickIncreaseParagrapgh = document.createElement("p");
   const autoIncreaseParagrapgh = document.createElement("p");
+  const currentIncrease = upgradeIncreaseAmounts[`upgrade${upgrade.id}`];
   if (upgrade.id === 1) {
-    clickIncreaseParagrapgh.textContent = `+ ${upgrade.increase} CPS`;
+    clickIncreaseParagrapgh.textContent = `+ ${currentIncrease} CPS`;
     upgradeIncreaseDiv.appendChild(clickIncreaseParagrapgh);
   } else {
-    autoIncreaseParagrapgh.textContent = `+ ${upgrade.increase} APS`;
+    autoIncreaseParagrapgh.textContent = `+ ${currentIncrease} APS`;
     upgradeIncreaseDiv.appendChild(autoIncreaseParagrapgh);
   }
 
   const upgradeCostDiv = document.createElement("div");
   upgradeCostDiv.id = "upgrade-cost";
   const costParagraph = document.createElement("p");
-  costParagraph.textContent = `${upgrade.cost}`;
+  const currentCost = upgradeCosts[`upgrade${upgrade.id}`];
+  costParagraph.textContent = currentCost;
   upgradeCostDiv.appendChild(costParagraph);
 
   upgradeSection.appendChild(upgradeImgDiv);
   upgradeSection.appendChild(upgradeTitleDiv);
   upgradeTitleDiv.appendChild(upgradeIncreaseDiv);
+  upgradeTitleDiv.appendChild(upgradeLvlDiv);
   upgradeSection.appendChild(upgradeCostDiv);
 
   rightContainer.appendChild(upgradeSection);
@@ -112,8 +151,12 @@ function createUpgrade(upgradeData, upgradeNumber) {
         upgradeLvls[`upgrade${upgrade.id}`] += 1;
         updateStats();
         upgrade.cost = Math.floor(upgrade.cost * 1.15);
+        upgradeCosts[`upgrade${upgrade.id}`] = upgrade.cost;
         upgrade.increase = Math.floor(upgrade.increase * 2);
+        upgradeIncreaseAmounts[`upgrade${upgrade.id}`] = upgrade.increase;
         clickIncreaseParagrapgh.textContent = `+ ${upgrade.increase} CPS`;
+        lvlParagraph.textContent =
+          "Lvl : " + upgradeLvls[`upgrade${upgrade.id}`];
         costParagraph.textContent = upgrade.cost;
       }
     } else {
@@ -128,8 +171,12 @@ function createUpgrade(upgradeData, upgradeNumber) {
         }
         updateStats();
         upgrade.cost = Math.floor(upgrade.cost * 1.15);
+        upgradeCosts[`upgrade${upgrade.id}`] = upgrade.cost;
         upgrade.increase = Math.floor(upgrade.increase * 2);
+        upgradeIncreaseAmounts[`upgrade${upgrade.id}`] = upgrade.increase;
         autoIncreaseParagrapgh.textContent = `+ ${upgrade.increase} APS`;
+        lvlParagraph.textContent =
+          "Lvl : " + upgradeLvls[`upgrade${upgrade.id}`];
         costParagraph.textContent = upgrade.cost;
       }
     }
@@ -142,11 +189,16 @@ function startAutoPower() {
     updateStats();
     localStorage.setItem(
       "StoredData",
-      JSON.stringify({ colour: newColour, text: newText })
-    ); // applies the change of colour to the local storage object
-    const updatedPreferences = JSON.parse(localStorage.getItem("StoredData")); // gets a fresh variable with the fresh storage values
-    pTag.textContent = updatedPreferences.text;
-  }, 1000);
+      JSON.stringify({
+        currentMoney,
+        clickPower,
+        autoPowerPerSecond,
+        upgradeLvls,
+        upgradeCosts,
+        upgradeIncreaseAmounts,
+      })
+    );
+  }, 1500);
 }
 
 startAutoPower();
@@ -172,6 +224,30 @@ if (!localStorage.getItem("StoredData")) {
         upgrade9: 0,
         upgrade10: 0,
       },
+      upgradeCosts: {
+        upgrade1: 100,
+        upgrade2: 500,
+        upgrade3: 1000,
+        upgrade4: 2000,
+        upgrade5: 5000,
+        upgrade6: 10000,
+        upgrade7: 20000,
+        upgrade8: 50000,
+        upgrade9: 100000,
+        upgrade10: 200000,
+      },
+      upgradeIncreaseAmounts: {
+        upgrade1: 1,
+        upgrade2: 5,
+        upgrade3: 10,
+        upgrade4: 20,
+        upgrade5: 50,
+        upgrade6: 100,
+        upgrade7: 200,
+        upgrade8: 500,
+        upgrade9: 1000,
+        upgrade10: 2000,
+      },
     })
   );
 }
@@ -196,5 +272,79 @@ function loadData() {
       upgrade9: data.upgradeLvls.upgrade9,
       upgrade10: data.upgradeLvls.upgrade10,
     };
+
+    upgradeCosts = {
+      upgrade1: data.upgradeCosts.upgrade1,
+      upgrade2: data.upgradeCosts.upgrade2,
+      upgrade3: data.upgradeCosts.upgrade3,
+      upgrade4: data.upgradeCosts.upgrade4,
+      upgrade5: data.upgradeCosts.upgrade5,
+      upgrade6: data.upgradeCosts.upgrade6,
+      upgrade7: data.upgradeCosts.upgrade7,
+      upgrade8: data.upgradeCosts.upgrade8,
+      upgrade9: data.upgradeCosts.upgrade9,
+      upgrade10: data.upgradeCosts.upgrade10,
+    };
+
+    upgradeIncreaseAmounts = {
+      upgrade1: data.upgradeIncreaseAmounts.upgrade1,
+      upgrade2: data.upgradeIncreaseAmounts.upgrade2,
+      upgrade3: data.upgradeIncreaseAmounts.upgrade3,
+      upgrade4: data.upgradeIncreaseAmounts.upgrade4,
+      upgrade5: data.upgradeIncreaseAmounts.upgrade5,
+      upgrade6: data.upgradeIncreaseAmounts.upgrade6,
+      upgrade7: data.upgradeIncreaseAmounts.upgrade7,
+      upgrade8: data.upgradeIncreaseAmounts.upgrade8,
+      upgrade9: data.upgradeIncreaseAmounts.upgrade9,
+      upgrade10: data.upgradeIncreaseAmounts.upgrade10,
+    };
+  }
+}
+
+async function loadUpgrades() {
+  const data = JSON.parse(localStorage.getItem("StoredData"));
+  if (data.upgradeLvls.upgrade2 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 2);
+  }
+
+  if (data.upgradeLvls.upgrade3 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 3);
+  }
+
+  if (data.upgradeLvls.upgrade4 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 4);
+  }
+
+  if (data.upgradeLvls.upgrade5 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 5);
+  }
+
+  if (data.upgradeLvls.upgrade6 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 6);
+  }
+
+  if (data.upgradeLvls.upgrade7 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 7);
+  }
+
+  if (data.upgradeLvls.upgrade8 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 8);
+  }
+
+  if (data.upgradeLvls.upgrade9 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 9);
+  }
+
+  if (data.upgradeLvls.upgrade10 > 0) {
+    const cookieUpgrades = await getCookieAPI();
+    createUpgrade(cookieUpgrades, 10);
   }
 }
