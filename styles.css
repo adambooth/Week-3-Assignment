@@ -1,0 +1,163 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header {
+  background-color: rgb(112, 114, 228);
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Fredoka One";
+  color: white;
+  -webkit-text-stroke: 2px black; /* makes black outline */
+  font-size: 50px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+p {
+  font-family: "Fredoka One";
+  color: white;
+  -webkit-text-stroke: 1px black; /* makes black outline */
+  font-size: 20px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 10px;
+  background-color: lightblue;
+}
+
+#money-holder {
+  padding: 10px;
+  background-color: rgba(112, 114, 228, 0.5);
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Fredoka One";
+  color: white;
+  -webkit-text-stroke: 2.5px black; /* makes black outline */
+  font-size: 40px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+#cookie-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  grid-column-start: 1;
+}
+
+#cookieImg {
+  width: 300px;
+  transition: 0.1s width ease;
+}
+
+#cookieImg:active {
+  width: 290px;
+}
+
+#middle-container {
+  grid-column-start: 2;
+  padding: 10px;
+}
+
+#right-container {
+  grid-column-start: 3;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#cookie-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+#\31,
+#\32,
+#\33,
+#\34,
+#\35,
+#\36,
+#\37,
+#\38,
+#\39,
+#\31 0 {
+  padding: 5px;
+  border: 2px solid brown;
+  background-color: rgba(112, 114, 228, 0.5);
+  margin: 5px;
+  width: 90%;
+  border-radius: 20px;
+}
+
+#cursorImg {
+  width: 50px;
+}
+
+#\31,
+#\32,
+#\33,
+#\34,
+#\35,
+#\36,
+#\37,
+#\38,
+#\39,
+#\31 0 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#\31:hover,
+#\32:hover,
+#\33:hover,
+#\34:hover,
+#\35:hover,
+#\36:hover,
+#\37:hover,
+#\38:hover,
+#\39:hover,
+#\31 0:hover {
+  padding: 2px;
+  border: 2px solid brown;
+  background-color: rgba(64, 66, 216, 0.5);
+  margin: 5px;
+  width: 90%;
+  border-radius: 20px;
+}
+
+#\31:active,
+#\32:active,
+#\33:active,
+#\34:active,
+#\35:active,
+#\36:active,
+#\37:active,
+#\38:active,
+#\39:active,
+#\31 0:active {
+  padding: 2px;
+  border: 2px solid brown;
+  background-color: rgb(64, 66, 216);
+  margin: 5px;
+  width: 90%;
+  border-radius: 20px;
+}
