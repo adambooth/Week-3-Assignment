@@ -66,6 +66,12 @@ function createUpgrade(upgradeData, upgradeNumber) {
   titleParagraph.textContent = `${upgrade.name}`;
   upgradeTitleDiv.appendChild(titleParagraph);
 
+  const upgradeIncreaseDiv = document.createElement("div");
+  upgradeIncreaseDiv.id = "upgrade-increase";
+  const increaseParagraph = document.createElement("p");
+  increaseParagraph.textContent = `+ ${upgrade.increase} CPS`;
+  upgradeIncreaseDiv.appendChild(increaseParagraph);
+
   const upgradeCostDiv = document.createElement("div");
   upgradeCostDiv.id = "upgrade-cost";
   const costParagraph = document.createElement("p");
@@ -74,6 +80,7 @@ function createUpgrade(upgradeData, upgradeNumber) {
 
   upgradeSection.appendChild(upgradeImgDiv);
   upgradeSection.appendChild(upgradeTitleDiv);
+  upgradeTitleDiv.appendChild(upgradeIncreaseDiv);
   upgradeSection.appendChild(upgradeCostDiv);
 
   rightContainer.appendChild(upgradeSection);
@@ -93,6 +100,7 @@ function createUpgrade(upgradeData, upgradeNumber) {
 function startAutoPower() {
   setInterval(function () {
     currentMoney = currentMoney + autoPowerPerSecond;
+    updateStats();
   }, 1000);
 }
 
