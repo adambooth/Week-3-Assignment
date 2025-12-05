@@ -22,7 +22,7 @@ The functionality of showing the next upgrade when getting the previous upgrade 
 Adding golden cookie time(mainly the timers running one after another in the right order and time)
 
 Sources i used for help:
-Youtube for CSS animations and local storage.
+Youtube for CSS animations, local storage and scroll boxes.
 
 Things i did well:
 Creating the settings container.
@@ -36,3 +36,4 @@ Things ive learnt:
 Lots of new css like animations and how to make the cursor ignore something.
 Improved my local storage and timer skills.
 I learnt how to create elements then add them into seperate containers, append them together into one big container to manage everything better.
+I learnt how scroll boxes work and how to use CSS with them.

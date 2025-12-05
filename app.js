@@ -6,7 +6,6 @@ const middleContainer = document.getElementById("middle-container");
 const clickPowerContainer = document.getElementById("click-power-container");
 const autoPower = document.getElementById("auto-power");
 const autoPowerContainer = document.getElementById("auto-power-container");
-const rightContainer = document.getElementById("right-container");
 
 const audioComponent = document.getElementById("audio-component");
 
@@ -165,7 +164,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
   upgradeTitleDiv.appendChild(upgradeLvlDiv);
   upgradeSection.appendChild(upgradeCostDiv);
 
-  rightContainer.appendChild(upgradeSection);
+  const upgradesContainer = document.getElementById("upgrades-container");
+  upgradesContainer.appendChild(upgradeSection);
 
   upgradeSection.addEventListener("click", function () {
     if (upgrade.id === 1) {
@@ -364,7 +364,7 @@ async function loadUpgrades() {
 
   const cookieUpgrades = await getCookieAPI();
 
-  for (let i = 2; i <= 10; i++) {
+  for (let i = 2; i <= 9; i++) {
     if (data.upgradeLvls[`upgrade${i}`] > 0) {
       createUpgrade(cookieUpgrades, i);
     }
