@@ -478,3 +478,20 @@ main {
   outline: 3px solid orange;
   outline-offset: 3px;
 }
+
+@media (max-width: 500px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 0.5fr 1fr;
+    padding: 10px;
+  }
+  #middle-container {
+    grid-column-start: 1;
+    grid-row-start: 2;
+  }
+  #right-container {
+    grid-column-start: 1;
+    grid-row-start: 3;
+  }
+}

@@ -761,5 +761,5 @@ document.addEventListener("keydown", function (event) {
 function setcanPressEnterToClick() {
   setTimeout(function () {
     canPressEnterToClick = true;
-  }, 1000);
+  }, 300);
 }
