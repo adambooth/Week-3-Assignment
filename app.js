@@ -4,10 +4,20 @@ const cookie = document.getElementById("cookieImg");
 const moneyContainer = document.getElementById("money-holder");
 const middleContainer = document.getElementById("middle-container");
 const clickPowerContainer = document.getElementById("click-power-container");
+const autoPower = document.getElementById("auto-power");
 const autoPowerContainer = document.getElementById("auto-power-container");
 const rightContainer = document.getElementById("right-container");
 
 const audioComponent = document.getElementById("audio-component");
+
+let timerInterval;
+let stopTimer;
+const goldenCookieTimer = document.getElementById("golden-cookie-timer");
+const timerHolder = document.getElementById("golden-cookie-timer-container");
+let goldenCookieMode = false;
+let goldenCookieReady = false;
+let timeLeftTillNextGoldenTime = 60;
+let timeLeftInGoldenCookieTime = 15;
 
 //localStorage.clear();
 
@@ -71,7 +81,7 @@ cookie.addEventListener("click", function () {
 function updateStats() {
   moneyContainer.textContent = `${currentMoney}`;
   clickPowerContainer.innerHTML = `Cookie Power : ${clickPower}`;
-  autoPowerContainer.innerHTML = `Auto Cookies Per Second : ${autoPowerPerSecond}`;
+  autoPower.innerHTML = `Cookies Per Second : ${autoPowerPerSecond}`;
 }
 
 loadData();
@@ -79,6 +89,7 @@ updateStats();
 getCookieUpgrade(0);
 getCookieUpgrade(1);
 loadUpgrades();
+goldenCookieTimerFunc();
 
 //===============================================Get API/Handle Upgrades===============================================
 
@@ -216,7 +227,13 @@ function startAutoPower() {
       first1000CookiesComplete = 1;
       first1000Cookies();
     }
-    currentMoney = currentMoney + autoPowerPerSecond;
+
+    if (goldenCookieMode === false) {
+      currentMoney = currentMoney + autoPowerPerSecond;
+    } else if (goldenCookieMode === true) {
+      currentMoney = currentMoney + autoPowerPerSecond * 2;
+    }
+
     updateStats();
     localStorage.setItem(
       "StoredData",
@@ -232,7 +249,7 @@ function startAutoPower() {
         upgradeIncreaseAmounts,
       })
     );
-  }, 1500);
+  }, 1000);
 }
 
 startAutoPower();
@@ -618,8 +635,89 @@ function addSmallCookie() {
   const smallCookie = document.createElement("img");
   smallCookie.id = "small-cookie" + randomInt;
   smallCookie.src = "./media/images/cookie.png";
+  smallCookie.alt = "small cookie";
   cookieImgContainer.appendChild(smallCookie);
   setInterval(function () {
     smallCookie.remove();
+  }, 1000);
+}
+
+//===============================================Golden Cookie Timer===============================================
+
+const cursorImg = document.createElement("img");
+cursorImg.id = "cursorImg";
+cursorImg.src = "./media/images/cursor.png";
+cursorImg.alt = "a cartoon cursor picture";
+
+timerHolder.addEventListener("click", onTimerClick);
+
+function onTimerClick() {
+  console.log("timeLeftTillNextGoldenTime:" + timeLeftTillNextGoldenTime);
+  console.log("timeLeftInGoldenCookieTime:" + timeLeftInGoldenCookieTime);
+  console.log("goldenCookieMode:" + goldenCookieMode);
+  console.log("goldenCookieReady:" + goldenCookieReady);
+
+  if (!goldenCookieMode && goldenCookieReady) {
+    startGoldenCookieTime();
+    goldenCookieMode = true;
+    goldenCookieReady = false;
+    timeLeftInGoldenCookieTime = 15;
+    cursorImg.remove();
+  }
+}
+
+function goldenCookieTimerFunc() {
+  timeLeftTillNextGoldenTime = 60;
+  goldenCookieReady = false;
+
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(function () {
+    if (timeLeftTillNextGoldenTime > 0) {
+      goldenCookieTimer.textContent =
+        "Golden Timer : " + timeLeftTillNextGoldenTime + "s";
+      timeLeftTillNextGoldenTime--;
+    } else {
+      clearInterval(timerInterval);
+      goldenCookieTimer.textContent = "Golden Cookie Time!";
+      timerHolder.appendChild(cursorImg);
+      goldenCookieReady = true;
+    }
+  }, 1000);
+}
+
+function startGoldenCookieTime() {
+  const cookieImg = document.getElementById("cookieImg");
+  cookieImg.src = "./media/images/goldenCookie.png";
+
+  const x2Icon = document.createElement("img");
+  x2Icon.id = "x2-icon";
+  x2Icon.alt = "Times 2 Icon";
+  x2Icon.src = "./media/images/x2Icon.png";
+
+  const x2Text = document.createElement("p");
+  x2Text.id = "x2-text";
+  x2Text.textContent = "Cookies Per Second : " + autoPowerPerSecond * 2;
+
+  autoPower.remove();
+  autoPowerContainer.appendChild(x2Text);
+  autoPowerContainer.appendChild(x2Icon);
+
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(function () {
+    if (timeLeftInGoldenCookieTime > 0) {
+      goldenCookieTimer.textContent =
+        "Golden Time Left : " + timeLeftInGoldenCookieTime + "s";
+      timeLeftInGoldenCookieTime--;
+    } else {
+      clearInterval(timerInterval);
+      cookieImg.src = "./media/images/cookie.png";
+      x2Text.remove();
+      x2Icon.remove();
+      autoPowerContainer.appendChild(autoPower);
+      goldenCookieMode = false;
+      goldenCookieTimerFunc();
+    }
   }, 1000);
 }

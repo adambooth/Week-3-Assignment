@@ -28,3 +28,4 @@ Appending the next upgrade when the previous one reaches lvl 1.
 Adding achievements and pop up messages.
 Making the game responsive.
 Added random small cookies to spawn on click and use animations.
+Adding sound effects.
