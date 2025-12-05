@@ -473,3 +473,8 @@ main {
   background-color: transparent;
   border-radius: 50px;
 }
+
+:focus {
+  outline: 3px solid orange;
+  outline-offset: 3px;
+}

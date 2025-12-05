@@ -18,6 +18,9 @@ let timerInterval;
 let stopTimer;
 const goldenCookieTimer = document.getElementById("golden-cookie-timer");
 const timerHolder = document.getElementById("golden-cookie-timer-container");
+timerHolder.tabIndex = 2;
+timerHolder.role = "button";
+timerHolder.ariaLabel = `Golden Cookie Timer`;
 let goldenCookieMode = false;
 let goldenCookieReady = false;
 let timeLeftTillNextGoldenTime = 60;
@@ -120,6 +123,9 @@ function createUpgrade(upgradeData, upgradeNumber) {
 
   const upgradeSection = document.createElement("section");
   upgradeSection.id = `${upgrade.id}`;
+  upgradeSection.tabIndex = 0;
+  upgradeSection.role = "button";
+  upgradeSection.ariaLabel = `upgrade${upgrade.id} button`;
 
   const upgradeImgDiv = document.createElement("div");
   upgradeImgDiv.id = "upgrade-img";
@@ -537,8 +543,17 @@ const backgroundsContainer = document.createElement("div");
 backgroundsContainer.id = "backgroundsContainer";
 
 const redBackground = document.createElement("img");
+redBackground.tabIndex = `11`;
+redBackground.role = "button";
+redBackground.ariaLabel = `red background button`;
 const lightblueBackground = document.createElement("img");
+lightblueBackground.tabIndex = `12`;
+lightblueBackground.role = "button";
+lightblueBackground.ariaLabel = `lightblue background button`;
 const brownBackground = document.createElement("img");
+brownBackground.tabIndex = `13`;
+brownBackground.role = "button";
+brownBackground.ariaLabel = `brown background button`;
 redBackground.src = "./media/images/redBackground.png";
 lightblueBackground.src = "./media/images/lightblueBackground.png";
 brownBackground.src = "./media/images/brownBackground.png";
@@ -560,55 +575,57 @@ backgroundContainer.id = "background-container";
 const volumeContainer = document.createElement("div");
 volumeContainer.id = "volume-container";
 
-settingsIcon.addEventListener("mouseenter", function () {
-  volumeContainer.appendChild(volumeIcon);
-  volumeContainer.appendChild(volumeParagraph);
-  volumeContainer.appendChild(volumeLabel);
-  volumeContainer.appendChild(volumeInput);
+settingsIcon.addEventListener("click", function () {
+  if (!settingsContainer.parentElement) {
+    volumeContainer.appendChild(volumeIcon);
+    volumeContainer.appendChild(volumeParagraph);
+    volumeContainer.appendChild(volumeLabel);
+    volumeContainer.appendChild(volumeInput);
 
-  backgroundContainer.appendChild(backgroundParagraph);
-  backgroundContainer.appendChild(redBackground);
-  backgroundContainer.appendChild(lightblueBackground);
-  backgroundContainer.appendChild(brownBackground);
+    backgroundContainer.appendChild(backgroundParagraph);
+    backgroundContainer.appendChild(redBackground);
+    backgroundContainer.appendChild(lightblueBackground);
+    backgroundContainer.appendChild(brownBackground);
 
-  settingsContainer.appendChild(volumeContainer);
-  settingsContainer.appendChild(backgroundContainer);
+    settingsContainer.appendChild(volumeContainer);
+    settingsContainer.appendChild(backgroundContainer);
 
-  settingsIcon.appendChild(settingsContainer);
+    settingsIcon.appendChild(settingsContainer);
 
-  const slider = document.getElementById("volume");
-  slider.addEventListener("input", () => {
-    volumeAmount = slider.value;
-    audioComponent.volume = volumeAmount / 100;
-    insufficientcookieAudioComponent.volume = volumeAmount / 100;
-  });
+    const slider = document.getElementById("volume");
+    slider.tabIndex = 0;
+    slider.ariaLabel = `Volume Slider`;
+    slider.addEventListener("input", () => {
+      volumeAmount = slider.value;
+      audioComponent.volume = volumeAmount / 100;
+      insufficientcookieAudioComponent.volume = volumeAmount / 100;
+    });
 
-  const redBackgroundBtn = document.getElementById("red-background-img");
+    const redBackgroundBtn = document.getElementById("red-background-img");
 
-  const lightblueBackgroundBtn = document.getElementById(
-    "lightblue-background-img"
-  );
+    const lightblueBackgroundBtn = document.getElementById(
+      "lightblue-background-img"
+    );
 
-  const brownBackgroundBtn = document.getElementById("brown-background-img");
+    const brownBackgroundBtn = document.getElementById("brown-background-img");
 
-  redBackgroundBtn.addEventListener("click", function () {
-    color = "red";
-    document.body.style.backgroundColor = "red";
-  });
+    redBackgroundBtn.addEventListener("click", function () {
+      color = "red";
+      document.body.style.backgroundColor = "red";
+    });
 
-  lightblueBackgroundBtn.addEventListener("click", function () {
-    color = "lightblue";
-    document.body.style.backgroundColor = "lightblue";
-  });
+    lightblueBackgroundBtn.addEventListener("click", function () {
+      color = "lightblue";
+      document.body.style.backgroundColor = "lightblue";
+    });
 
-  brownBackgroundBtn.addEventListener("click", function () {
-    color = "brown";
-    document.body.style.backgroundColor = "brown";
-  });
-});
-
-settingsIcon.addEventListener("mouseleave", function () {
-  settingsContainer.remove();
+    brownBackgroundBtn.addEventListener("click", function () {
+      color = "brown";
+      document.body.style.backgroundColor = "brown";
+    });
+  } else {
+    settingsContainer.remove();
+  }
 });
 
 //===============================================Cookie Fade Anim===============================================
@@ -699,5 +716,29 @@ function startGoldenCookieTime() {
       goldenCookieMode = false;
       goldenCookieTimerFunc();
     }
+  }, 1000);
+}
+
+//===============================================Keyboard Controls===============================================
+
+let canPressEnterToClick = true;
+
+document.addEventListener("keydown", function (event) {
+  if (canPressEnterToClick === true) {
+    if (event.key === "Enter") {
+      const focusedElement = document.activeElement;
+
+      if (focusedElement) {
+        focusedElement.click();
+        canPressEnterToClick = false;
+        setcanPressEnterToClick();
+      }
+    }
+  }
+});
+
+function setcanPressEnterToClick() {
+  setTimeout(function () {
+    canPressEnterToClick = true;
   }, 1000);
 }

@@ -19,9 +19,11 @@ I want to add a feature where when activate golden cookie time you cookies per s
 Things i struggled with:
 Local storage took me a long time but once id got the hang of it and the first set up done i could add to it easily.
 Adding golden cookie time(mainly the timers running one after another in the right order and time)
+Adding keyboard controls
 
 Sources i used for help:
 Youtube for CSS animations, local storage and scroll boxes.
+ChatGPT helped to teach me how to setup and talk me through how keydown events work and how to find the element you are currently on and use enter to click it.
 
 Things i did well:
 Creating the settings container.
