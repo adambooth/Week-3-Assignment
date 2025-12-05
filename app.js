@@ -106,9 +106,12 @@ function updateStats() {
 
 loadData();
 updateStats();
-getCookieUpgrade(0);
-getCookieUpgrade(1);
-loadUpgrades();
+async function initUpgrades() {
+  await getCookieUpgrade(0);
+  await getCookieUpgrade(1);
+  await loadUpgrades();
+}
+initUpgrades();
 goldenCookieTimerFunc();
 
 //===============================================Get API/Handle Upgrades===============================================
