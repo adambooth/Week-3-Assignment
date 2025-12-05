@@ -18,7 +18,6 @@ I want to add a feature where when activate golden cookie time you cookies per s
 
 Things i struggled with:
 Local storage took me a long time but once id got the hang of it and the first set up done i could add to it easily.
-The functionality of showing the next upgrade when getting the previous upgrade to lvl 1.
 Adding golden cookie time(mainly the timers running one after another in the right order and time)
 
 Sources i used for help:
@@ -31,9 +30,15 @@ Adding achievements and pop up messages.
 Making the game responsive.
 Added random small cookies to spawn on click and use animations.
 Adding sound effects.
+Retrieving the API and breaking it down into parts to implement the upgrades.
 
 Things ive learnt:
 Lots of new css like animations and how to make the cursor ignore something.
 Improved my local storage and timer skills.
 I learnt how to create elements then add them into seperate containers, append them together into one big container to manage everything better.
 I learnt how scroll boxes work and how to use CSS with them.
+
+Requested Feedback:
+A youtube video on timers and countdowns to help me further understand as the golden cookie timer took me hours to get working if possible.
+
+A youtube video on local storage as i feel i need a recap on the setup after ive got everything setup im fine with adding, clearing and removing its just the initial setup.
