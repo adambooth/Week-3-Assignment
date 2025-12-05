@@ -474,7 +474,7 @@ main {
   border-radius: 50px;
 }
 
-:focus {
+:focus-visible {
   outline: 3px solid orange;
   outline-offset: 3px;
 }
