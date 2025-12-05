@@ -32,7 +32,7 @@ Adding achievements and pop up messages.
 Making the game responsive.
 Added random small cookies to spawn on click and use animations.
 Adding sound effects.
-Retrieving the API and breaking it down into parts to implement the upgrades.
+Retrieving the API and breaking it down into parts to implement the upgrades..
 
 Things ive learnt:
 Lots of new css like animations and how to make the cursor ignore something.
