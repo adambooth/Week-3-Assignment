@@ -6,6 +6,7 @@
 
 body {
   background-color: rgb(112, 114, 228);
+  width: 100%;
 }
 
 header {
@@ -212,16 +213,6 @@ main {
   border-radius: 20px;
 }
 
-@media (max-width: 1100px) {
-  #InsufficientMoneyContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    border: 0px;
-  }
-}
-
 #settings-container {
   background-color: rgba(0, 0, 0, 0.295);
   display: grid;
@@ -294,4 +285,20 @@ main {
 #background-icon:active {
   opacity: 0.8;
   padding: 7px;
+}
+
+@media (max-width: 1100px) {
+  #InsufficientMoneyContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    border: 0px;
+  }
+}
+
+@media (max-width: 700px) {
+  #settings-container {
+    background-color: transparent;
+  }
 }

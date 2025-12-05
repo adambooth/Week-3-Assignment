@@ -17,6 +17,7 @@ let autoPowerPerSecond = 0;
 let first100CookiesComplete = 0;
 let first1000CookiesComplete = 0;
 let volumeAmount = 50;
+let color = "lightblue";
 
 let upgradeLvls = {
   upgrade1: 0,
@@ -213,6 +214,7 @@ function startAutoPower() {
     localStorage.setItem(
       "StoredData",
       JSON.stringify({
+        color,
         currentMoney,
         clickPower,
         autoPowerPerSecond,
@@ -234,6 +236,7 @@ if (!localStorage.getItem("StoredData")) {
   localStorage.setItem(
     "StoredData",
     JSON.stringify({
+      color: "lightblue",
       currentMoney: 0,
       clickPower: 1,
       autoPowerPerSecond: 0,
@@ -283,6 +286,7 @@ function loadData() {
   const data = JSON.parse(localStorage.getItem("StoredData"));
 
   if (data) {
+    color = data.color;
     currentMoney = data.currentMoney;
     clickPower = data.clickPower;
     autoPowerPerSecond = data.autoPowerPerSecond;
@@ -332,6 +336,7 @@ function loadData() {
 
 async function loadUpgrades() {
   const data = JSON.parse(localStorage.getItem("StoredData"));
+  document.body.style.backgroundColor = data.color;
   if (data.upgradeLvls.upgrade2 > 0) {
     const cookieUpgrades = await getCookieAPI();
     createUpgrade(cookieUpgrades, 2);
@@ -576,16 +581,19 @@ settingsIcon.addEventListener("mouseenter", function () {
   const brownBackgroundBtn = document.getElementById("brown-background-img");
 
   redBackgroundBtn.addEventListener("click", function () {
+    color = "red";
     document.body.style.backgroundColor = "red";
     console.log("red btn clicked");
   });
 
   lightblueBackgroundBtn.addEventListener("click", function () {
+    color = "lightblue";
     document.body.style.backgroundColor = "lightblue";
     console.log("lightblue btn clicked");
   });
 
   brownBackgroundBtn.addEventListener("click", function () {
+    color = "brown";
     document.body.style.backgroundColor = "brown";
     console.log("brown btn clicked");
   });
