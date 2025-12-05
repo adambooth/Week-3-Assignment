@@ -361,49 +361,13 @@ function loadData() {
 async function loadUpgrades() {
   const data = JSON.parse(localStorage.getItem("StoredData"));
   document.body.style.backgroundColor = data.color;
-  if (data.upgradeLvls.upgrade2 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 2);
-  }
 
-  if (data.upgradeLvls.upgrade3 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 3);
-  }
+  const cookieUpgrades = await getCookieAPI();
 
-  if (data.upgradeLvls.upgrade4 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 4);
-  }
-
-  if (data.upgradeLvls.upgrade5 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 5);
-  }
-
-  if (data.upgradeLvls.upgrade6 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 6);
-  }
-
-  if (data.upgradeLvls.upgrade7 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 7);
-  }
-
-  if (data.upgradeLvls.upgrade8 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 8);
-  }
-
-  if (data.upgradeLvls.upgrade9 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 9);
-  }
-
-  if (data.upgradeLvls.upgrade10 > 0) {
-    const cookieUpgrades = await getCookieAPI();
-    createUpgrade(cookieUpgrades, 10);
+  for (let i = 2; i <= 10; i++) {
+    if (data.upgradeLvls[`upgrade${i}`] > 0) {
+      createUpgrade(cookieUpgrades, i);
+    }
   }
 }
 
@@ -530,7 +494,7 @@ function GoldenCookieTimeMessage() {
   middleContainer.appendChild(GoldenCookieTimeSection);
   setInterval(function () {
     GoldenCookieTimeSection.remove();
-  }, 15000);
+  }, 16000);
 }
 
 //===============================================Volume Icon===============================================
