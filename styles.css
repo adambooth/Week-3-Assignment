@@ -186,7 +186,7 @@ main {
   border: 2px solid brown;
   background-color: rgba(112, 114, 228, 0.5);
   margin: 5px;
-  width: 90%;
+  width: 100%;
   border-radius: 20px;
 }
 
@@ -240,7 +240,7 @@ main {
   border: 2px solid brown;
   background-color: rgba(64, 66, 216, 0.5);
   margin: 5px;
-  width: 90%;
+  width: 100%;
   border-radius: 20px;
 }
 
@@ -258,7 +258,7 @@ main {
   border: 2px solid brown;
   background-color: rgb(64, 66, 216);
   margin: 5px;
-  width: 90%;
+  width: 100%;
   border-radius: 20px;
   animation-duration: 0.2s;
   animation-name: size;

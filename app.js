@@ -26,6 +26,19 @@ let goldenCookieReady = false;
 let timeLeftTillNextGoldenTime = 60;
 let timeLeftInGoldenCookieTime = 15;
 
+const UpgradeImagesArray = [
+  "cursor.png",
+  "quantumOven.png",
+  "barn.png",
+  "robot.png",
+  "factory.png",
+  "magicFlour.png",
+  "timeMachine.png",
+  "quantumOven.png",
+  "alien.png",
+  "baker.png",
+];
+
 //localStorage.clear();
 
 let currentMoney = 0;
@@ -132,7 +145,12 @@ function createUpgrade(upgradeData, upgradeNumber) {
 
   const cursorImg = document.createElement("img");
   cursorImg.id = "cursorImg";
-  cursorImg.src = "./media/images/cursor.png";
+  if (upgrade.id === 1) {
+    cursorImg.src = "./media/images/cursor.png";
+  } else {
+    cursorImg.src =
+      "./media/images/upgradeImages/" + UpgradeImagesArray[upgrade.id - 1];
+  }
   cursorImg.alt = "a cartoon cursor picture";
   upgradeImgDiv.appendChild(cursorImg);
 
