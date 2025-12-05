@@ -367,6 +367,7 @@ main {
   width: 30px;
   height: 30px;
   animation: cookieFall 1s linear;
+  pointer-events: none;
 }
 
 #small-cookie1 {
@@ -375,6 +376,7 @@ main {
   width: 30px;
   height: 30px;
   animation: cookieFall 1s linear;
+  pointer-events: none;
 }
 
 #small-cookie2 {
@@ -384,6 +386,7 @@ main {
   width: 30px;
   height: 30px;
   animation: cookieFall 1s linear;
+  pointer-events: none;
 }
 
 #small-cookie3 {
@@ -393,6 +396,7 @@ main {
   width: 30px;
   height: 30px;
   animation: cookieFall 1s linear;
+  pointer-events: none;
 }
 
 #small-cookie4 {
@@ -402,6 +406,7 @@ main {
   width: 30px;
   height: 30px;
   animation: cookieFall 1s linear;
+  pointer-events: none;
 }
 
 @keyframes cookieFall {

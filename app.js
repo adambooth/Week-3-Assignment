@@ -459,12 +459,6 @@ function first100Cookies() {
   cursorImg.alt = "a cartoon cursor picture";
   upgradeImgDiv.appendChild(cursorImg);
 
-  const upgradeLvlDiv = document.createElement("div");
-  upgradeLvlDiv.id = "upgrade-title";
-  const lvlParagraph = document.createElement("p");
-  lvlParagraph.textContent = "Lvl : ";
-  upgradeLvlDiv.appendChild(lvlParagraph);
-
   const upgradeCostDiv = document.createElement("div");
   upgradeCostDiv.id = "upgrade-cost";
   const costParagraph = document.createElement("p");
@@ -494,12 +488,6 @@ function first1000Cookies() {
   cursorImg.alt = "a cartoon cursor picture";
   upgradeImgDiv.appendChild(cursorImg);
 
-  const upgradeLvlDiv = document.createElement("div");
-  upgradeLvlDiv.id = "upgrade-title";
-  const lvlParagraph = document.createElement("p");
-  lvlParagraph.textContent = "Lvl : ";
-  upgradeLvlDiv.appendChild(lvlParagraph);
-
   const upgradeCostDiv = document.createElement("div");
   upgradeCostDiv.id = "upgrade-cost";
   const costParagraph = document.createElement("p");
@@ -514,6 +502,35 @@ function first1000Cookies() {
   setInterval(function () {
     first1000CookiesSection.remove();
   }, 2000);
+}
+
+function GoldenCookieTimeMessage() {
+  const GoldenCookieTimeSection = document.createElement("section");
+  GoldenCookieTimeSection.id = "InsufficientMoneyContainer";
+
+  const GoldenCookieTimeDiv = document.createElement("div");
+  GoldenCookieTimeDiv.id = "upgrade-img";
+
+  const cursorImg = document.createElement("img");
+  cursorImg.id = "cursorImg";
+  cursorImg.src = "./media/images/greenTick.png";
+  cursorImg.alt = "a cartoon cursor picture";
+  GoldenCookieTimeDiv.appendChild(cursorImg);
+
+  const goldenCookieTimeTitleDiv = document.createElement("div");
+  goldenCookieTimeTitleDiv.id = "upgrade-cost";
+  const goldenCookieTimeParagraph = document.createElement("p");
+  const goldenCookieTimeText = "Golden Cookie Time!";
+  goldenCookieTimeParagraph.textContent = goldenCookieTimeText;
+  goldenCookieTimeTitleDiv.appendChild(goldenCookieTimeParagraph);
+
+  GoldenCookieTimeSection.appendChild(GoldenCookieTimeDiv);
+  GoldenCookieTimeSection.appendChild(goldenCookieTimeTitleDiv);
+
+  middleContainer.appendChild(GoldenCookieTimeSection);
+  setInterval(function () {
+    GoldenCookieTimeSection.remove();
+  }, 15000);
 }
 
 //===============================================Volume Icon===============================================
@@ -659,6 +676,7 @@ function onTimerClick() {
 
   if (!goldenCookieMode && goldenCookieReady) {
     startGoldenCookieTime();
+    GoldenCookieTimeMessage();
     goldenCookieMode = true;
     goldenCookieReady = false;
     timeLeftInGoldenCookieTime = 15;
