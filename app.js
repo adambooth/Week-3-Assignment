@@ -378,61 +378,6 @@ async function loadUpgrades() {
   }
 }
 
-//===============================================Background Icon===============================================
-
-const backgroundIcon = document.getElementById("background-change-container");
-
-const mainContainer = document.getElementById("main-container");
-
-const backgroundsContainer = document.createElement("div");
-backgroundsContainer.id = "backgroundsContainer";
-
-const redBackground = document.createElement("img");
-const lightblueBackground = document.createElement("img");
-const brownBackground = document.createElement("img");
-redBackground.src = "./media/images/redBackground.png";
-lightblueBackground.src = "./media/images/lightblueBackground.png";
-brownBackground.src = "./media/images/brownBackground.png";
-
-redBackground.id = "red-background-img";
-lightblueBackground.id = "lightblue-background-img";
-brownBackground.id = "brown-background-img";
-
-backgroundsContainer.appendChild(redBackground);
-backgroundsContainer.appendChild(lightblueBackground);
-backgroundsContainer.appendChild(brownBackground);
-
-backgroundIcon.addEventListener("mouseenter", function () {
-  backgroundIcon.appendChild(backgroundsContainer);
-
-  const redBackgroundBtn = document.getElementById("red-background-img");
-
-  const lightblueBackgroundBtn = document.getElementById(
-    "lightblue-background-img"
-  );
-
-  const brownBackgroundBtn = document.getElementById("brown-background-img");
-
-  redBackgroundBtn.addEventListener("click", function () {
-    document.body.style.backgroundColor = "red";
-    console.log("red btn clicked");
-  });
-
-  lightblueBackgroundBtn.addEventListener("click", function () {
-    document.body.style.backgroundColor = "lightblue";
-    console.log("lightblue btn clicked");
-  });
-
-  brownBackgroundBtn.addEventListener("click", function () {
-    document.body.style.backgroundColor = "brown";
-    console.log("brown btn clicked");
-  });
-});
-
-backgroundIcon.addEventListener("mouseleave", function () {
-  backgroundsContainer.remove();
-});
-
 //===============================================Error/Insufficient Money===============================================
 
 function InsufficientMoneyFunc() {
@@ -544,10 +489,14 @@ function first1000Cookies() {
 
 //===============================================Volume Icon===============================================
 
-const volumeIcon = document.getElementById("volume-change-container");
+const volumeIcon = document.createElement("img");
+volumeIcon.id = "volume-icon";
+volumeIcon.src = "./media/images/volumeImg.png";
+volumeIcon.alt = "change background button and image";
 
-const volumeContainer = document.createElement("div");
-volumeContainer.id = "volumeContainer";
+const volumeParagraph = document.createElement("p");
+volumeParagraph.id = "volume-icon";
+volumeParagraph.textContent = "Change Volume";
 
 const volumeLabel = document.createElement("label");
 const volumeInput = document.createElement("input");
@@ -560,19 +509,88 @@ volumeInput.min = "0";
 volumeInput.max = "100";
 volumeInput.value = "50";
 
-volumeContainer.appendChild(volumeLabel);
-volumeContainer.appendChild(volumeInput);
+//===============================================Background Icon===============================================
 
-volumeIcon.addEventListener("mouseenter", function () {
-  volumeIcon.appendChild(volumeContainer);
+const mainContainer = document.getElementById("main-container");
+
+const backgroundParagraph = document.createElement("p");
+backgroundParagraph.id = "background-para";
+backgroundParagraph.textContent = "Change Background";
+
+const backgroundsContainer = document.createElement("div");
+backgroundsContainer.id = "backgroundsContainer";
+
+const redBackground = document.createElement("img");
+const lightblueBackground = document.createElement("img");
+const brownBackground = document.createElement("img");
+redBackground.src = "./media/images/redBackground.png";
+lightblueBackground.src = "./media/images/lightblueBackground.png";
+brownBackground.src = "./media/images/brownBackground.png";
+
+redBackground.id = "red-background-img";
+lightblueBackground.id = "lightblue-background-img";
+brownBackground.id = "brown-background-img";
+
+//===============================================Settings Icon===============================================
+
+const settingsIcon = document.getElementById("settings-icon");
+
+const settingsContainer = document.createElement("div");
+settingsContainer.id = "settings-container";
+
+const backgroundContainer = document.createElement("div");
+backgroundContainer.id = "background-container";
+
+const volumeContainer = document.createElement("div");
+volumeContainer.id = "volume-container";
+
+settingsIcon.addEventListener("mouseenter", function () {
+  volumeContainer.appendChild(volumeIcon);
+  volumeContainer.appendChild(volumeParagraph);
+  volumeContainer.appendChild(volumeLabel);
+  volumeContainer.appendChild(volumeInput);
+
+  backgroundContainer.appendChild(backgroundParagraph);
+  backgroundContainer.appendChild(redBackground);
+  backgroundContainer.appendChild(lightblueBackground);
+  backgroundContainer.appendChild(brownBackground);
+
+  settingsContainer.appendChild(volumeContainer);
+  settingsContainer.appendChild(backgroundContainer);
+
+  settingsIcon.appendChild(settingsContainer);
+
   const slider = document.getElementById("volume");
   slider.addEventListener("input", () => {
     volumeAmount = slider.value;
     audioComponent.volume = volumeAmount / 100;
     console.log(volumeAmount);
   });
+
+  const redBackgroundBtn = document.getElementById("red-background-img");
+
+  const lightblueBackgroundBtn = document.getElementById(
+    "lightblue-background-img"
+  );
+
+  const brownBackgroundBtn = document.getElementById("brown-background-img");
+
+  redBackgroundBtn.addEventListener("click", function () {
+    document.body.style.backgroundColor = "red";
+    console.log("red btn clicked");
+  });
+
+  lightblueBackgroundBtn.addEventListener("click", function () {
+    document.body.style.backgroundColor = "lightblue";
+    console.log("lightblue btn clicked");
+  });
+
+  brownBackgroundBtn.addEventListener("click", function () {
+    document.body.style.backgroundColor = "brown";
+    console.log("brown btn clicked");
+  });
 });
 
-volumeIcon.addEventListener("mouseleave", function () {
-  volumeContainer.remove();
+settingsIcon.addEventListener("mouseleave", function () {
+  settingsContainer.remove();
 });
