@@ -1,4 +1,4 @@
-// https://cookie-upgrade-api.vercel.app/api/upgrades
+//===============================================Variables===============================================
 
 const cookie = document.getElementById("cookieImg");
 const moneyContainer = document.getElementById("money-holder");
@@ -58,15 +58,18 @@ let upgradeIncreaseAmounts = {
   upgrade10: 2000,
 };
 
+//===============================================Handle Stats===============================================
+
 cookie.addEventListener("click", function () {
   currentMoney = currentMoney + clickPower;
-  moneyContainer.textContent = `Cookies : ${currentMoney}`;
+  moneyContainer.textContent = `${currentMoney}`;
   audioComponent.playbackRate = 5;
   audioComponent.play();
+  addSmallCookie();
 });
 
 function updateStats() {
-  moneyContainer.textContent = `Cookies : ${currentMoney}`;
+  moneyContainer.textContent = `${currentMoney}`;
   clickPowerContainer.innerHTML = `Cookie Power : ${clickPower}`;
   autoPowerContainer.innerHTML = `Auto Cookies Per Second : ${autoPowerPerSecond}`;
 }
@@ -76,6 +79,8 @@ updateStats();
 getCookieUpgrade(0);
 getCookieUpgrade(1);
 loadUpgrades();
+
+//===============================================Get API/Handle Upgrades===============================================
 
 async function getCookieAPI() {
   const cookieAPI = await fetch(
@@ -198,6 +203,8 @@ function createUpgrade(upgradeData, upgradeNumber) {
     }
   });
 }
+
+//===============================================Handle Cookies Per Second===============================================
 
 function startAutoPower() {
   setInterval(function () {
@@ -383,7 +390,7 @@ async function loadUpgrades() {
   }
 }
 
-//===============================================Error/Insufficient Money===============================================
+//===============================================Error/Insufficient Cookies===============================================
 
 function InsufficientMoneyFunc() {
   const InsufficientMoney = document.createElement("section");
@@ -602,3 +609,17 @@ settingsIcon.addEventListener("mouseenter", function () {
 settingsIcon.addEventListener("mouseleave", function () {
   settingsContainer.remove();
 });
+
+//===============================================Cookie Fade Anim===============================================
+
+function addSmallCookie() {
+  const cookieImgContainer = document.getElementById("cookie-img-container");
+  const randomInt = Math.floor(Math.random() * 5);
+  const smallCookie = document.createElement("img");
+  smallCookie.id = "small-cookie" + randomInt;
+  smallCookie.src = "./media/images/cookie.png";
+  cookieImgContainer.appendChild(smallCookie);
+  setInterval(function () {
+    smallCookie.remove();
+  }, 1000);
+}

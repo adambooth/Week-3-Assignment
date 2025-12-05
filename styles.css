@@ -62,7 +62,7 @@ main {
   font-family: "Fredoka One";
   color: white;
   -webkit-text-stroke: 2.5px black; /* makes black outline */
-  font-size: 40px;
+  font-size: 30px;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
@@ -79,11 +79,11 @@ main {
 
 #cookieImg {
   width: 300px;
-  transition: 0.1s width ease;
+  animation: spin 5s linear infinite;
 }
 
 #cookieImg:active {
-  width: 290px;
+  animation: spin 5s linear infinite, size 0.1s linear;
 }
 
 #middle-container {
@@ -121,6 +121,38 @@ main {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  animation-duration: 0.5s;
+  animation-name: spinSize;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  0% {
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinSize {
+  0% {
+    scale: 0;
+    opacity: 0.3;
+  }
+  100% {
+    transform: rotate(360deg);
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes size {
+  0% {
+    scale: 1;
+  }
+  100% {
+    scale: 1.1;
+  }
 }
 
 #\31,
@@ -211,6 +243,9 @@ main {
   margin: 5px;
   width: 90%;
   border-radius: 20px;
+  animation-duration: 0.2s;
+  animation-name: size;
+  animation-timing-function: linear;
 }
 
 #settings-container {
@@ -285,6 +320,71 @@ main {
 #background-icon:active {
   opacity: 0.8;
   padding: 7px;
+}
+
+#cookie-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#small-cookie0 {
+  position: absolute;
+  margin-right: 20px;
+  margin-bottom: 60px;
+  width: 30px;
+  height: 30px;
+  animation: cookieFall 1s linear;
+}
+
+#small-cookie1 {
+  position: absolute;
+  margin-right: 60px;
+  width: 30px;
+  height: 30px;
+  animation: cookieFall 1s linear;
+}
+
+#small-cookie2 {
+  position: absolute;
+  margin-left: 100px;
+  margin-bottom: 40px;
+  width: 30px;
+  height: 30px;
+  animation: cookieFall 1s linear;
+}
+
+#small-cookie3 {
+  position: absolute;
+  margin-right: 100px;
+  margin-bottom: 20px;
+  width: 30px;
+  height: 30px;
+  animation: cookieFall 1s linear;
+}
+
+#small-cookie4 {
+  position: absolute;
+  margin-left: 20px;
+  margin-bottom: 100px;
+  width: 30px;
+  height: 30px;
+  animation: cookieFall 1s linear;
+}
+
+@keyframes cookieFall {
+  0% {
+    transform: translateY(0px) scale(0);
+  }
+  25% {
+    transform: translateY(-20px) scale(0.5);
+  }
+  50% {
+    transform: translateY(20px) scale(1);
+  }
+  100% {
+    transform: translateY(100px) scale(0);
+  }
 }
 
 @media (max-width: 1100px) {
