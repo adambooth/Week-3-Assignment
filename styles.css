@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  touch-action: manipulation;
+}
+
 body {
   background-color: rgb(112, 114, 228);
   width: 100%;
