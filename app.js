@@ -8,6 +8,11 @@ const autoPower = document.getElementById("auto-power");
 const autoPowerContainer = document.getElementById("auto-power-container");
 
 const audioComponent = document.getElementById("audio-component");
+const insufficientcookieAudioComponent = document.getElementById(
+  "insufficient-cookie-audio-component"
+);
+
+insufficientcookieAudioComponent.playbackRate = 1;
 
 let timerInterval;
 let stopTimer;
@@ -104,7 +109,6 @@ async function getCookieAPI() {
 
 async function getCookieUpgrade(number) {
   const cookieUpgrades = await getCookieAPI();
-  console.log(cookieUpgrades);
   createUpgrade(cookieUpgrades, number);
 }
 
@@ -186,6 +190,7 @@ function createUpgrade(upgradeData, upgradeNumber) {
         costParagraph.textContent = upgrade.cost;
       } else if (currentMoney < upgrade.cost) {
         InsufficientMoneyFunc();
+        insufficientcookieAudioComponent.play();
       }
     } else {
       if (currentMoney >= upgrade.cost) {
@@ -210,6 +215,7 @@ function createUpgrade(upgradeData, upgradeNumber) {
         costParagraph.textContent = upgrade.cost;
       } else if (currentMoney < upgrade.cost) {
         InsufficientMoneyFunc();
+        insufficientcookieAudioComponent.play();
       }
     }
   });
@@ -574,7 +580,7 @@ settingsIcon.addEventListener("mouseenter", function () {
   slider.addEventListener("input", () => {
     volumeAmount = slider.value;
     audioComponent.volume = volumeAmount / 100;
-    console.log(volumeAmount);
+    insufficientcookieAudioComponent.volume = volumeAmount / 100;
   });
 
   const redBackgroundBtn = document.getElementById("red-background-img");
@@ -588,19 +594,16 @@ settingsIcon.addEventListener("mouseenter", function () {
   redBackgroundBtn.addEventListener("click", function () {
     color = "red";
     document.body.style.backgroundColor = "red";
-    console.log("red btn clicked");
   });
 
   lightblueBackgroundBtn.addEventListener("click", function () {
     color = "lightblue";
     document.body.style.backgroundColor = "lightblue";
-    console.log("lightblue btn clicked");
   });
 
   brownBackgroundBtn.addEventListener("click", function () {
     color = "brown";
     document.body.style.backgroundColor = "brown";
-    console.log("brown btn clicked");
   });
 });
 
@@ -633,11 +636,6 @@ cursorImg.alt = "a cartoon cursor picture";
 timerHolder.addEventListener("click", onTimerClick);
 
 function onTimerClick() {
-  console.log("timeLeftTillNextGoldenTime:" + timeLeftTillNextGoldenTime);
-  console.log("timeLeftInGoldenCookieTime:" + timeLeftInGoldenCookieTime);
-  console.log("goldenCookieMode:" + goldenCookieMode);
-  console.log("goldenCookieReady:" + goldenCookieReady);
-
   if (!goldenCookieMode && goldenCookieReady) {
     startGoldenCookieTime();
     GoldenCookieTimeMessage();
